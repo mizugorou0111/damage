@@ -11,49 +11,55 @@ html {
 *{
   margin-left:1%;
 }
+input{
+  padding-top:3px;
+  padding-bottom:3px;
+}
 .attack,.defence{
   border:5px solid;
 }
 .cut{
   font-size:30px;
-　margin:10px,0px,0px,10px;
+  margin:10px,0px,0px,10px;
   height:0px;
 }
-.attackpokemon label{
+.attackpokemon label,.nowhp label{
   font-size:20px;
 }
-.attackpokemon input{
-  height:30px;
- width:250px;
-  font-size:18px;
+.attackpokemon input::before{
+  content:"\A";
+  white-space:pre;
 }
 .skill label{
   font-size:20px;
 }
-.skill input{
+.skill input,.atklevel input,.attackpokemon input,.item input,.nowhp input{
   height:30px;
   width:250px;
   font-size:18px;
 }
 .atklevel label{
   font-size:20px;
-  }
-.atklevel input{
-  height:30px;
-  width:250px;
-  font-size:18px;
 }
 .item label{
   font-size:20px;
 }
 .item input{
-  height:30px;
-  width:250px;
-  font-size:18px;
   margin-bottom:10px;
 }
-.atk{
+.check::before{
+  content:"\A";
+  white-space:pre;
+}
+.check input{
+  width:20px;
+  height:20px;
+}
+.stats,.check{
   font-size:20px;
+  margin-top:5px;
+  margin-bottom:5px;
+  width:100%;
  }
  .defencepokemon label{
   font-size:20px;
@@ -72,15 +78,22 @@ html {
   font-size:18px;
   margin-bottom:10px;
 }
+.nowhp .num{
+  height:30px;
+  width:80px;
+  font-size:18px;
+}
+.nowhp .btn{
+  width:60px;
+}
 .result{
-  font-size:20px;
+  font-size:30px;
 }
 .unitedb{
   font-size:15px;
 }    
 }
 @media screen and (min-width:481px){
-
 *{
   margin-left:10px;
 }
@@ -89,24 +102,28 @@ input{
   font-size:20px;
 }
 .check{
-  display:none;
+  font-size:20px;
 }
-.item{
-  margin-left:0px;
+.check input{
+  width:20px;
+  height:20px;
 }
 .attack{
   border:5px solid;
 }
 .defence{
   border:5px solid;
-  height:200px;
 }
-.attackpokemon label,.skill label,.atklevel label,.item label,.atk,.defencepokemon label,.deflevel label{
+.attackpokemon label,.skill label,.atklevel label,.item label,.stats,.defencepokemon label,.deflevel label{
   font-size:20px;
 }
-.item,.atk{
-  margin-left:10px;
+.item,.stats{
+  margin-left:20px;
 }
+.item label{
+  margin-left:0px;
+}
+
 .item input{
   width:100px;
 }
@@ -116,5 +133,8 @@ input{
   width:100%;
   margin:10px 0px 0px 30px;
   padding:0;
+}
+.result{
+  font-size:30px;
 }
 }
