@@ -2,13 +2,13 @@ html {
     touch-action: manipulation;
   }
 .attack .cut{
-  color:red;
+  color:yellow;
 }
 .defence .cut{
   color:blue;
 }
 ul{
-  list-style:none !important;
+  list-style-type:none !important;
   padding:0px;
 }
 @media screen and (max-width:480px){
