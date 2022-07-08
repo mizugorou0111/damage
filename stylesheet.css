@@ -1,14 +1,14 @@
 html {
     touch-action: manipulation;
   }
-.attack .cut{
+.attack .cut,.warning{
   color:red;
 }
 .defence .cut{
   color:blue;
 }
 ul{
-  list-style-type:none !important;
+  list-style:none;
   padding:0px;
 }
 @media screen and (max-width:480px){
@@ -16,7 +16,7 @@ ul{
   margin-left:1%;
 }
 ul{
-  list-style:none;
+  list-style-type:none !important;
   padding:0px;
 }
 input{
@@ -52,11 +52,13 @@ input{
 .item label{
   font-size:20px;
 }
+.item input{
+  font-size:18px;
+  height:20px;
+}
 .items{
   margin-bottom:10px;
   width:150px;
-  height:30px;
-  font-size:18px;
 }
 .item_level{
   width:60px;
