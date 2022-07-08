@@ -2,7 +2,7 @@ html {
     touch-action: manipulation;
   }
 .attack .cut{
-  color:yellow;
+  color:red;
 }
 .defence .cut{
   color:blue;
