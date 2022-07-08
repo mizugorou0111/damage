@@ -60,7 +60,7 @@
             <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="かるいし"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>備考欄</label><label id="floatstone"></label></li>
             <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="もうこうダンベル"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レべ"><br><label>筋トレ回数</label><input type="number" min = "0" max="6" value="0" placeholder="回数" id="dumbbell"></li>
           </ul>
-        <p id="warning"></p>
+        <p id="warning" class="warning"></p>
         </div>
       <br>
       <div id="checks">
@@ -189,6 +189,7 @@
       function atkitem(){
         for(let i = 0;i<=2;i++){
           let item = items[i];
+          let itemlv = items_level[i].value;
           switch(item){
             case "ちからのハチマキ":
               if(document.getElementById("powerband")===null){
@@ -202,8 +203,7 @@
                 document.getElementsByName("itemli")[i].appendChild(node);
                 document.getElementById("powerband").addEventListener("change",calculation);
               }
-              console.log("gds");
-              attack+=Math.floor((items_level[i].value-0+1)/2);
+              attack+=Math.floor((itemlv-0+1)/2);
               break;
             case "かるいし":
               if(document.getElementById("floatstone")===null){
@@ -214,7 +214,7 @@
                 document.getElementsByName("itemli")[i].appendChild(frag);
                 document.getElementsByName("itemli")[i].appendChild(node);
               }
-              attack+=1.6*Math.floor((items_level[i].value-0+1)/2);
+              attack+=1.6*Math.floor((itemlv-0+1)/2);
               break;
             case "もうこうダンベル":
               if(document.getElementById("dumbbell")===null){
@@ -231,7 +231,7 @@
                 document.getElementsByName("itemli")[i].appendChild(node);
                 document.getElementById("dumbbell").addEventListener("change",calculation);
               }
-              attack+=0.6*items_level[i].value+[6,9,12,12][Math.floor(items_level[i].value/10)]*document.getElementById("dumbbell").value;
+              attack+=0.6*itemlv+[6,9,12,12][Math.floor(itemlv/10)]*document.getElementById("dumbbell").value;
               break;
           }
         }
@@ -243,16 +243,13 @@
         while(datali.firstChild){
           datali.removeChild(datali.firstChild);
         }
-        console.log(document.getElementById("skills"));
         let frag = "";
         for(let i = 0;i<=attackpokemon.skills.length;i++){
           frag = document.createElement("option");
           frag.value = attackpokemon.skills[i].name;
           frag.appendChild(document.createTextNode(attackpokemon.skills[i].name))
-          console.log(frag);
           datali.appendChild(frag);
         }
-        console.log(datali);
       }
       function createnode(){
        if(attackpokemon.name ==="ルカリオ"&&!(["しんそく","しんそく+","フルチャージグロウパンチ","チャージなしグロウパンチ","でんこうせっか","コメットパンチ"].includes(skill.name))&&document.getElementById("lucario_extremespeedbuff")===null&&attacklevel>=11){
@@ -280,8 +277,6 @@
         let inputs = document.getElementsByTagName("input");
         for(let i = 1;i<inputs.length;i++){
           let inputone = inputs[i];
-          console.log(inputone);
-          console.log(inputone.value)
           if(inputone.type==="number" && inputone.value-0>inputone.max){
             inputone.value=inputone.max;
           }
@@ -298,6 +293,7 @@
         sp_defence = defencepokemon.sp_defence[defencelevel-1];
         inputnowhp.max = healthpoint;
         btnnowhp.value = healthpoint;
+        nowhp = inputnowhp.value;
         if(inputnowhp.value>healthpoint){
           inputnowhp.value = healthpoint;
         }
@@ -309,24 +305,52 @@
         }
         createnode();
         atkitem();
+        if(items[0]===items[1]||items[1]===items[2]||items[2]===items[0]){
+          document.getElementById("warning").textContent="重複するもちものがあります";
+        }else{
+          document.getElementById("warning").textConten="";
+        }
         atk.textContent = `${kind==="attack"?"こうげき":"とくこう"}:${kind==="attack"?attack:sp_attack}`;
         def.textContent = `${kind==="attack"?"ぼうぎょ":"とくぼう"}:${kind==="attack"?defence:sp_defence}`;
         maxhp.textContent = `最大HP:${healthpoint}`
         damage=kind==="attack"?Math.floor(skill.ratio*0.01*attack+skill.per*(attacklevel-1)+skill.base):Math.floor(skill.ratio*0.01*sp_attack+skill.per*(attacklevel-1)+skill.base);
-        console.log(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0);
         if(skill.name === "しんそく+"||(lucario_extremespeedbuff&&document.getElementById("lucario_extremespeedbuff").checked)){
           damage=Math.floor(damage*1.075);
         }
         if(defencepokemon.name==="みがわり人形"){
           if(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0){
             result.textContent = damage;
-            console.log(result);
           }else{
             result.textContent =`${damage}ダメージ+割合`;
           }
         }else{
         damage =kind==="attack"?600/(defence+600)*damage:600/(sp_defence+600)*damage;
         damage = Math.floor(damage);
+        console.log(damage);
+        damage+=healthpoint*skill.rate[0]/100<skill.rate[1]?Math.floor(healthpoint*skill.rate[0]/100):skill.rate[1];
+        damage+=skill.decrease[0]*(healthpoint-nowhp)/100<skill.decrease[1]?Math.floor(skill.decrease[0]*(healthpoint-nowhp)/100):skill.decrease[1];
+        damage+=Math.floor(skill.current[0]*nowhp/100<skill.current[1]?Math.floor(skill.current[0]*nowhp/100):skill.current[1]);
+        console.log(damage);
+        for(let i = 0;i<=2;i++){
+          let item = items[i];
+          let itemlv = items_level[i].value;
+          switch(item){
+            case "ちからのハチマキ":
+              if(skill.name==="通常攻撃"||skill.name==="強化攻撃"){
+                let valll = Math.round([1,2,3,3][Math.floor(itemlv/10)]*nowhp/100)-6;//なんか合わないからこれでごまかす
+                let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
+                console.log(valll);
+                console.log(nummm);
+                if(nummm>360){
+                  damage+=nummm
+                }else{
+                damage=Math.floor(damage+nummm);
+                }
+              }
+            break;
+          }
+        }
+        console.log(damage);
         result.textContent = `${damage}ダメージ`;
         }
       };
@@ -364,7 +388,6 @@
       inputitems_level[2].addEventListener("change",calculation);
       inputnowhp.addEventListener("change",calculation);
       btnnowhp.addEventListener("click",()=>{
-        console.log("aaa");
         inputnowhp.value = healthpoint;
         calculation();
       });
