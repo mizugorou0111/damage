@@ -7,6 +7,10 @@ html {
 .defence .cut{
   color:blue;
 }
+ul{
+  list-style:none;
+  padding-left:0px;
+}
 @media screen and (max-width:480px){
 *{
   margin-left:1%;
@@ -33,7 +37,7 @@ input{
 .skill label{
   font-size:20px;
 }
-.skill input,.atklevel input,.attackpokemon input,.item input,.nowhp input{
+.skill input,.atklevel input,.attackpokemon input,.nowhp input{
   height:30px;
   width:250px;
   font-size:18px;
@@ -44,8 +48,15 @@ input{
 .item label{
   font-size:20px;
 }
-.item input{
+.items{
   margin-bottom:10px;
+  width:150px;
+  height:30px;
+  font-size:18px;
+}
+.item_level{
+  width:60px;
+  font-size:18px;
 }
 .check::before{
   content:"\A";
@@ -108,24 +119,23 @@ input{
   width:20px;
   height:20px;
 }
-.attack{
+.attack,.defence{
   border:5px solid;
 }
-.defence{
-  border:5px solid;
-}
-.attackpokemon label,.skill label,.atklevel label,.item label,.stats,.defencepokemon label,.deflevel label{
+.attackpokemon label,.skill label,.atklevel label,.item,.stats,.defencepokemon label,.deflevel label,.nowhp label{
   font-size:20px;
 }
-.item,.stats{
+.stats{
   margin-left:20px;
 }
-.item label{
-  margin-left:0px;
+.items{
+  width:180px;
 }
-
-.item input{
-  width:100px;
+.item li{
+  padding-right:100px;
+}
+.item_level,.atklevel input,.deflevel input{
+  width:40px;
 }
 .cut{
   font-size:40px;
