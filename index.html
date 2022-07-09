@@ -56,11 +56,11 @@
         <div class="item">
           <label>もちもの</label>
           <ul>
-            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="ちからのハチマキ"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>CT0秒</label><input type="checkbox" checked id="powerband"></li>
-            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="かるいし"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>備考欄</label><label id="floatstone"></label></li>
-            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="もうこうダンベル"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レべ"><br><label>筋トレ回数</label><input type="number" min = "0" max="6" value="0" placeholder="回数" id="dumbbell"></li>
+            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="ちからのハチマキ"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>CT0秒</label><input type="checkbox" checked id="atkpowerband"></li>
+            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="かるいし"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>備考欄</label><label id="atkfloatstone"></label></li>
+            <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="もうこうダンベル"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レべ"><br><label>筋トレ回数</label><input type="number" min = "0" max="6" value="0" placeholder="回数" id="atkdumbbell"></li>
           </ul>
-        <p id="warning" class="warning"></p>
+          <p id="warning" class="warning"></p>
         </div>
       <br>
       <div id="checks">
@@ -97,6 +97,15 @@
         <input type="button" value="3250" class="btn" id="nowhp_btn">
       </div>
       <p id="def" class="stats">ぼうぎょ:78</p>
+      <div class="item">
+        <label>もちもの</label>
+        <ul>
+          <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="ちからのハチマキ"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>CT0秒</label><input type="checkbox" checked id="defpowerband"></li>
+          <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="かるいし"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レベ"><br><label>備考欄</label><label id="deffloatstone"></label></li>
+          <li name="itemli"><input name = "item" placeholder="もちもの" class="items" value="もうこうダンベル"><label>レベル</label><input type="number" min="1" max="30" class="item_level" value="20" placeholder="レべ"><br><label>筋トレ回数</label><input type="number" min = "0" max="6" value="0" placeholder="回数" id="defdumbbell"></li>
+        </ul>
+        <p id="warning2" class="warning"></p>
+      </div>
     </div>
     <p id="result" class="result"></p>
     <p id="memo"></p>
@@ -178,61 +187,141 @@
       let memo = document.getElementById("memo");
       let extremespeedbuff_check = null;
       let inputitems =document.getElementsByName("item");
-      let items =[inputitems[0].value,inputitems[1].value,inputitems[2].value];
+      let items =[inputitems[0].value,inputitems[1].value,inputitems[2].value,inputitems[3].value,inputitems[4].value,inputitems[5].value];
       let inputitems_level = document.getElementsByClassName("item_level");
-      let items_level =[inputitems_level[0],inputitems_level[1],inputitems_level[2]];
+      let items_level =[inputitems_level[0],inputitems_level[1],inputitems_level[2],inputitems_level[3],inputitems_level[4],inputitems_level[5]];
       let inputcritical = document.getElementById("critical");
       let inputpluspower = document.getElementById("pluspower");
       function write(text){
         memo.textContent = memo.textContent+text+",";
       }
-      function atkitem(){
+      function powerband(i,kind,itemlv){
+        if(document.getElementById(kind+"powerband")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="checkbox";
+          node.checked =true;
+          node.id=kind+"powerband";
+          frag.appendChild(document.createTextNode("CT0秒"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"powerband").addEventListener("change",calculation);
+         }
+        if(kind==="atk"){
+          attack+=Math.floor((itemlv-0+1)/2);
+        }
+      }
+      function floatstone(i,kind,itemlv){
+        if(document.getElementById(kind+"floatstone")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"floatstone";
+          frag.appendChild(document.createTextNode("備考欄"));
+        }
+        if(kind==="atk"){
+          attack+=1.6*Math.floor((itemlv-0+1)/2);
+        }
+      }
+      function dumbbell(i,kind,itemlv){
+        if(document.getElementById(kind+"dumbbell")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="number";
+          node.min = "0";
+          node.max = "6";
+          node.value = "0";
+          node.id = kind+"dumbbell";
+          node.placeholder = "回数"
+          frag.appendChild(document.createTextNode("筋トレ回数"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"dumbbell").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          attack+=0.6*itemlv+[6,9,12,12][Math.floor(itemlv/10)]*document.getElementById("atkdumbbell").value;
+        }
+      }
+      function nail(i,kind,itemlv){
+        if(document.getElementById(kind+"nail")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="checkbox";
+          node.checked = true;
+          node.id=kind+"nail";
+          frag.appendChild(document.createTextNode("CT0秒"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"nail").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          attack+=Math.floor((itemlv-0+1)/2);
+        }
+      }
+      function insurance(i,kind,itemlv){
+        if(document.getElementById(kind+"insurance")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="number";
+          node.min = "0";
+          node.max = "4";
+          node.value="0";
+          node.id = kind+"insurance";
+          node.placeholder="回数";
+          frag.appendChild(document.createTextNode("スタック数"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"insurance").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          attack+=Math.floor((itemlv-0)/2);
+          attack=(document.getElementById(kind+"insurance").value*[2,2.5,3,3][Math.floor(itemlv/10)]*attack/100);
+        }else{
+          nowhp+=Math.floor((itemlv-0-1)/2)*10+70;
+          healthpoint+=Math.floor((itemlv-0-1)/2)*10+70;
+          btnnowhp.value = healthpoint;
+        }
+      }
+      function itemprocess(){
         for(let i = 0;i<=2;i++){
           let item = items[i];
           let itemlv = items_level[i].value;
           switch(item){
             case "ちからのハチマキ":
-              if(document.getElementById("powerband")===null){
-                let frag = document.createElement("label");
-                let node = document.createElement("input");
-                node.type="checkbox";
-                node.checked =true;
-                node.id="powerband";
-                frag.appendChild(document.createTextNode("CT0秒"));
-                document.getElementsByName("itemli")[i].appendChild(frag);
-                document.getElementsByName("itemli")[i].appendChild(node);
-                document.getElementById("powerband").addEventListener("change",calculation);
-              }
-              attack+=Math.floor((itemlv-0+1)/2);
-              break;
+              powerband(i,"atk",itemlv);
+            break;
             case "かるいし":
-              if(document.getElementById("floatstone")===null){
-                let frag = document.createElement("label");
-                let node = document.createElement("label");
-                node.id="floatstone";
-                frag.appendChild(document.createTextNode("備考欄"));
-                document.getElementsByName("itemli")[i].appendChild(frag);
-                document.getElementsByName("itemli")[i].appendChild(node);
-              }
-              attack+=1.6*Math.floor((itemlv-0+1)/2);
-              break;
+              floatstone(i,"atk",itemlv);
+            break;
             case "もうこうダンベル":
-              if(document.getElementById("dumbbell")===null){
-                let frag = document.createElement("label");
-                let node = document.createElement("input");
-                frag.appendChild(document.createTextNode("筋トレ回数"));
-                node.type="number";
-                node.min = "0";
-                node.max = "6";
-                node.value = "0";
-                node.id = "dumbbell";
-                node.placeholder = "回数"
-                document.getElementsByName("itemli")[i].appendChild(frag);
-                document.getElementsByName("itemli")[i].appendChild(node);
-                document.getElementById("dumbbell").addEventListener("change",calculation);
-              }
-              attack+=0.6*itemlv+[6,9,12,12][Math.floor(itemlv/10)]*document.getElementById("dumbbell").value;
-              break;
+              dumbbell(i,"atk",itemlv);
+            break;
+            case "するどいツメ":
+              nail(i,"atk",itemlv);
+            break;
+            case "じゃくてんほけん":
+              insurance(i,"atk",itemlv);
+             break;
+          }
+        }
+        for(let i = 3;i<=5;i++){
+          let item = items[i];
+          let itemlv = items_level[i].value;
+          switch(item){
+            case "ちからのハチマキ":
+             powerband(i,"def",itemlv);
+            break;
+            case "かるいし":
+              floatstone(i,"def",itemlv);
+            break;
+            case "もうこうダンベル":
+              floatstone(i,"def",itemlv);
+            break;
+            case "するどいツメ":
+              nail(i,"def",itemlv);
+            break;
+            case "じゃくてんほけん":
+              insurance(i,"def",itemlv);
+            break;
           }
         }
       }
@@ -297,14 +386,14 @@
         if(inputnowhp.value>healthpoint){
           inputnowhp.value = healthpoint;
         }
-        items = [inputitems[0].value,inputitems[1].value,inputitems[2].value];
+        items = [inputitems[0].value,inputitems[1].value,inputitems[2].value,inputitems[3].value,inputitems[4].value,inputitems[5].value];
         if(attackpokemon.kind ==="attack"||(skill.name==="通常攻撃")){
           kind = "attack";
         }else{
           kind = "special";
         }
         createnode();
-        atkitem();
+        itemprocess();
         if((items[0]===items[1]&&items[0]!=="")||(items[1]===items[2]&&items[1]!=="")||(items[2]===items[0]&&items[0]!=="")){
           document.getElementById("warning").textContent="重複するもちものがあります";
         }else{
@@ -336,7 +425,7 @@
           let itemlv = items_level[i].value;
           switch(item){
             case "ちからのハチマキ":
-              if(skill.name==="通常攻撃"||skill.name==="強化攻撃"){
+              if((skill.name==="通常攻撃"||skill.name==="強化攻撃")&&document.getElementById("powerband").checked){
                 let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);//なんか合わない
                 let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
                 console.log(valll);
@@ -383,9 +472,24 @@
         itemremove(2);
         calculation();
       });
+      inputitems[3].addEventListener("change",()=>{
+        itemremove(3);
+        calculation();
+      });
+      inputitems[4].addEventListener("change",()=>{
+        itemremove(4);
+        calculation();
+      });
+      inputitems[5].addEventListener("change",()=>{
+        itemremove(5);
+        calculation();
+      });
       inputitems_level[0].addEventListener("change",calculation);
       inputitems_level[1].addEventListener("change",calculation);
       inputitems_level[2].addEventListener("change",calculation);
+      inputitems_level[3].addEventListener("change",calculation);
+      inputitems_level[4].addEventListener("change",calculation);
+      inputitems_level[5].addEventListener("change",calculation);
       inputnowhp.addEventListener("change",calculation);
       btnnowhp.addEventListener("click",()=>{
         inputnowhp.value = healthpoint;
@@ -398,8 +502,10 @@
       }, {
           passive: false
       });
-      document.getElementById("powerband").addEventListener("change",calculation);
-      document.getElementById("dumbbell").addEventListener("change",calculation);
+      document.getElementById("atkpowerband").addEventListener("change",calculation);
+      document.getElementById("atkdumbbell").addEventListener("change",calculation);
+      document.getElementById("defpowerband").addEventListener("change",calculation);
+      document.getElementById("defdumbbell").addEventListener("change",calculation);
     </script>
   </body>
 </html>
