@@ -305,10 +305,10 @@
         }
         createnode();
         atkitem();
-        if(items[0]===items[1]||items[1]===items[2]||items[2]===items[0]){
+        if((items[0]===items[1]&&items[0]!=="")||(items[1]===items[2]&&items[1]!=="")||(items[2]===items[0]&&items[0]!=="")){
           document.getElementById("warning").textContent="重複するもちものがあります";
         }else{
-          document.getElementById("warning").textConten="";
+          document.getElementById("warning").textContent="";
         }
         atk.textContent = `${kind==="attack"?"こうげき":"とくこう"}:${kind==="attack"?attack:sp_attack}`;
         def.textContent = `${kind==="attack"?"ぼうぎょ":"とくぼう"}:${kind==="attack"?defence:sp_defence}`;
@@ -337,7 +337,7 @@
           switch(item){
             case "ちからのハチマキ":
               if(skill.name==="通常攻撃"||skill.name==="強化攻撃"){
-                let valll = Math.round([1,2,3,3][Math.floor(itemlv/10)]*nowhp/100)-6;//なんか合わないからこれでごまかす
+                let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);//なんか合わない
                 let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
                 console.log(valll);
                 console.log(nummm);
