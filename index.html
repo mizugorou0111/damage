@@ -298,6 +298,7 @@
           let node = document.createElement("input");
           node.type="checkbox";
           node.chekced = true;
+          node.id=kind+"scope"
           frag.appendChild(document.createTextNode("CT0秒"));
           document.getElementsByName("itemli")[i].appendChild(frag);
           document.getElementsByName("itemli")[i].appendChild(node);
@@ -345,6 +346,7 @@
           inputnowhp.max = healthpoint;
         }
       }
+      //もちものをステータス計算に適応し、新しくインプットを作る
       function itemprocess(){
         for(let i = 0;i<=2;i++){
           let item = items[i];
@@ -407,6 +409,7 @@
           }
         }
       }
+      //スキルのdatalistを変更する
       function changeskills(){
         attackpokemon = extract(data,inputattackpokemon.value,data.length);
         inputskill.value="通常攻撃";
@@ -422,6 +425,7 @@
           datali.appendChild(frag);
         }
       }
+      //チェックボックスを作成する
       function createnode(){
        if(attackpokemon.name ==="ルカリオ"&&!(["しんそく","しんそく+","フルチャージグロウパンチ","チャージなしグロウパンチ","でんこうせっか","コメットパンチ"].includes(skill.name))&&document.getElementById("lucario_extremespeedbuff")===null&&attacklevel>=11){
           let extremespeedbuff = document.createElement("input");
@@ -443,7 +447,52 @@
            extremespeedbuff_check = null;
         }
       }
-
+      //もちものをダメージ計算に適用する
+      function itemtreatment(){
+        for(let i = 0;i<=2;i++){
+          let item = items[i];
+          let itemlv = items_level[i].value;
+          switch(item){
+            case "ちからのハチマキ":
+              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atkpowerband").checked){
+                let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);//なんか合わない
+                let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
+                console.log(valll);
+                console.log(nummm);
+                if(nummm>360){
+                  damage+=nummm
+                }else{
+                damage=Math.floor(damage+nummm);
+                }
+              }
+            break;
+            case "するどいツメ":
+              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atknail").checked){
+                damage+=[10,15,20,20][Math.floor(itemlv/10)];
+                damage+=Math.floor([40,45,50,50][Math.floor(itemlv/10)]*attack/100)
+              }
+            break;
+          }
+        }
+          if(inputcritical.checked){
+            if([items[0],items[1],items[2]].includes("ピントレンズ")){
+              let itemlv=items_level[items.indexOf("ピントレンズ")].value-0;
+              if(attackpokemon.name==="マリルリ"){
+                damage=Math.floor(damage*(1.5+0.008*Math.floor(itemlv/2)));
+                damage+=Math.floor([45,60,75,75][Math.floor(itemlv/10)]*attack/100);
+              }else{
+                damage=Math.floor(damage*(2+0.008*Math.floor(itemlv/2)));
+                damage+=Math.floor([45,60,75,75][Math.floor(itemlv/10)]*attack/100);
+              }
+            }else{
+              if(attackpokemon.name==="マリルリ"){
+                damage=Math.floor(damage*1.5);
+              }else{
+                damage=Math.floor(damage*2);
+              }
+            }
+          }
+      }
       function calculation(){
         let inputs = document.getElementsByTagName("input");
         for(let i = 1;i<inputs.length;i++){
@@ -493,10 +542,17 @@
         if(skill.name === "しんそく+"||(lucario_extremespeedbuff&&document.getElementById("lucario_extremespeedbuff").checked)){
           damage=Math.floor(damage*1.075);
         }
+        console.log(items);
+        console.log([items[0],items[1],items[2]].includes("ちからのハチマキ"));
         if(defencepokemon.name==="みがわり人形"){
-          if(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0){
+          if(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0&&![items[0],items[1],items[2]].includes("ちからのハチマキ")){
+            itemtreatment();
             result.textContent = damage;
           }else{
+            if([items[0],items[1],items[2]].includes("ちからのハチマキ")){
+            items.splice(items.indexOf("ちからのハチマキ"),1,"")
+          }
+            itemtreatment();
             result.textContent =`${damage}ダメージ+割合`;
           }
         }else{
@@ -507,31 +563,7 @@
         damage+=skill.decrease[0]*(healthpoint-nowhp)/100<skill.decrease[1]?Math.floor(skill.decrease[0]*(healthpoint-nowhp)/100):skill.decrease[1];
         damage+=Math.floor(skill.current[0]*nowhp/100<skill.current[1]?Math.floor(skill.current[0]*nowhp/100):skill.current[1]);
         console.log(damage);
-        for(let i = 0;i<=2;i++){
-          let item = items[i];
-          let itemlv = items_level[i].value;
-          switch(item){
-            case "ちからのハチマキ":
-              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atkpowerband").checked){
-                let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);//なんか合わない
-                let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
-                console.log(valll);
-                console.log(nummm);
-                if(nummm>360){
-                  damage+=nummm
-                }else{
-                damage=Math.floor(damage+nummm);
-                }
-              }
-            break;
-            case "するどいツメ":
-              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atknail").checked){
-                damage+=[10,15,20,20][Math.floor(itemlv/10)];
-                damage+=Math.floor([40,45,50,50][Math.floor(itemlv/10)]*attack/100)
-              }
-            break;
-          }
-        }
+        itemtreatment();
         console.log(damage);
         result.textContent = `${damage}ダメージ`;
         }
@@ -544,6 +576,7 @@
           removing.removeChild(removing.lastChild);
         }
       }
+      /*/ここからイベント設定/*/
       inputattackpokemon.addEventListener("change",function(){
         changeskills();
         calculation();
@@ -588,6 +621,8 @@
         inputnowhp.value = healthpoint;
         calculation();
       });
+      inputcritical.addEventListener("change",calculation);
+      inputpluspower.addEventListener("change",calculation);
       document.addEventListener('touchstart', (event) => {
         if(event.touches && event.touches.length > 1) {
             event.preventDefault();
