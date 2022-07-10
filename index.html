@@ -527,7 +527,7 @@
             case "するどいツメ":
               if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atknail").checked){
                 damage+=[10,15,20,20][Math.floor(itemlv/10)];
-                damage+=[40,45,50,50][Math.floor(itemlv/10)]*attack/100;
+                damage+=Math.floor([40,45,50,50][Math.floor(itemlv/10)]*attack/100)
               }
             break;
           }
