@@ -58,10 +58,10 @@ input{
 }
 .items{
   margin-bottom:10px;
-  width:150px;
+  width:180px;
 }
 .item_level{
-  width:60px;
+  width:50px;
   font-size:18px;
 }
 .check::before{
