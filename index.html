@@ -42,10 +42,10 @@
           <option value="チャージなしグロウパンチ">チャージなしグロウパンチ</option>
           <option value="フルチャージグロウパンチ">フルチャージグロウパンチ</option>
           <option value="コメットパンチ">コメットパンチ</option>
-          <option value="ボーンラッシュ">ボーンラッシュ</option>
-          <option value="インファイト">インファイト</option>
-          <option value="インファイト+">インファイト+</option>
-          <option value="ユナイトわざ">ユナイトわざ</option>
+          <option value="ボーンラッシュ(4-7ヒット)">ボーンラッシュ</option>
+          <option value="インファイト(11ヒット)">インファイト</option>
+          <option value="インファイト+(11ヒット)">インファイト+</option>
+          <option value="ユナイトわざ(4ヒット)">ユナイトわざ</option>
         </datalist>
         <datalist id="allitems">
           <option value="ちからのハチマキ">ちからのハチマキ</option>
@@ -55,7 +55,18 @@
           <option value="じゃくてんほけん">じゃくてんほけん</option>
           <option value="ピントレンズ">ピントレンズ</option>
           <option value="しんげきメガネ">しんげきメガネ</option>
-
+          <option value="エオスビスケット">エオスビスケット</option>
+          <option value="ものしりメガネ">ものしりメガネ</option>
+          <option value="こだわりメガネ">こだわりメガネ</option>
+          <option value="エナジーアンプ">エナジーアンプ</option>
+          <option value="とつげきチョッキ">とつげきチョッキ</option>
+          <option value="おたすけバリア">おたすけバリア</option>
+          <option value="がくしゅうそうち">がくしゅうそうち</option>
+          <option value="きあいのハチマキ">きあいのハチマキ</option>
+          <option value="たべのこし">たべのこし</option>
+          <option value="ゴツゴツメット">ゴツゴツメット</option>
+          <option value="ゴールサポーター">ゴールサポーター</option>
+          <option value="かいがらのすず">かいがらのすず</option>
         </datalist>
       </div>
       <div class="atklevel">
@@ -165,7 +176,11 @@
           this.current = current;//現在hp割合
         }
       }
-      let data = [new Pokemon("ルカリオ",[3250,3392,3549,3721,3910,4118,4347,4599,4877,5184,5522,5894,6303,6753,7249],[160,170,180,192,205,219,234,251,270,291,314,339,366,396,429],[78,89,101,114,129,145,163,183,205,229,255,284,316,351,390],[20,23,27,31,36,41,46,52,59,66,74,83,93,104,116],[60,69,78,88,99,112,126,141,158,176,196,218,243,270,300],"attack",[new Skill("しんそく",198,6,270),new Skill("しんそく+",198,6,270),new Skill("フルチャージグロウパンチ",381.8,5,161,[0,0],[10,1000]),new Skill("チャージなしグロウパンチ",209.15,3,88,10,[0,0],[10,1000]),new Skill("通常攻撃",100),new Skill("強化攻撃",130),new Skill("でんこうせっか",221,11,240),new Skill("しんそくの回し蹴り",75),new Skill("コメットパンチ",167,8,180),new Skill("ボーンラッシュ",41,1,50),new Skill("インファイト",50,2,60),new Skill("インファイト+",56,2,69),new Skill("ユナイトわざ",174,4,210)]),new Pokemon("みがわり人形",fill(100000,15),fill(0,15),fill(0,15),fill(0,15),fill(0,15),"attack",null),new Pokemon("ピカチュウ",[3292,3399,3517,3646,3788,3945,4117,4307,4516,4747,5001,5280,5588,5927,6300],[134,140,146,153,160,168,177,187,198,210,223,237,253,271,290],[35,40,45,51,58,65,73,82,92,103,115,128,142,158,175],[50,82,117,156,199,246,298,355,418,487,563,647,740,842,954],[27,31,35,40,45,51,57,64,72,80,89,99,110,122,135],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃",38,10,200),new Skill("でんきショック",75,21,390),new Skill("エレキボール",66,25,530,[0,0],[4,999999]),new Skill("エレキボール+",77,29,640,[0,0],[5,999999]),new Skill("かみなり",20,5,210),new Skill("エレキネット",36,11,350),new Skill("ボルテッカー",14,3,140),new Skill("10まんボルト",50,12,500),new Skill("10まんボルト+",61,12,609),new Skill("ユナイト技",49,10,490)])];
+      let data = [new Pokemon("ルカリオ",[3250,3392,3549,3721,3910,4118,4347,4599,4877,5184,5522,5894,6303,6753,7249],[160,170,180,192,205,219,234,251,270,291,314,339,366,396,429],[78,89,101,114,129,145,163,183,205,229,255,284,316,351,390],[20,23,27,31,36,41,46,52,59,66,74,83,93,104,116],[60,69,78,88,99,112,126,141,158,176,196,218,243,270,300],"attack",[new Skill("しんそく",198,6,270),new Skill("しんそく+",198,6,270),new Skill("フルチャージグロウパンチ",381.8,5,161,[0,0],[10,1000]),new Skill("チャージなしグロウパンチ",209.15,3,88,10,[0,0],[10,1000]),new Skill("通常攻撃",100),new Skill("強化攻撃",130),new Skill("でんこうせっか",221,11,240),new Skill("しんそくの回し蹴り",75),new Skill("コメットパンチ",167,8,180),new Skill("ボーンラッシュ(4-7ヒット)",41,1,50),new Skill("インファイト(11ヒット)",50,2,60),new Skill("インファイト+(11ヒット)",56,2,69),new Skill("ユナイトわざ(4ヒット)",174,4,210)])];
+      data.push(new Pokemon("みがわり人形",fill(100000,15),fill(0,15),fill(0,15),fill(0,15),fill(0,15),"attack",null));
+      data.push(new Pokemon("ピカチュウ",[3292,3399,3517,3646,3788,3945,4117,4307,4516,4747,5001,5280,5588,5927,6300],[134,140,146,153,160,168,177,187,198,210,223,237,253,271,290],[35,40,45,51,58,65,73,82,92,103,115,128,142,158,175],[50,82,117,156,199,246,298,355,418,487,563,647,740,842,954],[27,31,35,40,45,51,57,64,72,80,89,99,110,122,135],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃",38,10,200),new Skill("でんきショック",75,21,390),new Skill("エレキボール",66,25,530,[0,0],[4,999999]),new Skill("エレキボール+",77,29,640,[0,0],[5,999999]),new Skill("かみなり(5,+7ヒット)",20,5,210),new Skill("エレキネット",36,11,350),new Skill("ボルテッカー(5ヒット)",14,3,140),new Skill("10まんボルト",50,12,500),new Skill("10まんボルト+",61,12,609),new Skill("ユナイト技(4ヒット)",49,10,490)]));
+      data.push(new Pokemon("アローラキュウコン",[3197,3266,3345,3747,3852,3972,4110,4269,4452,4663,4906,5185,5506,5875,6299],[134,137,141,161,166,172,179,187,196,207,219,233,249,268,289],[35,38,42,60,65,70,76,83,91,101,112,125,139,156,175],[51,72,96,219,251,288,330,379,435,500,574,660,759,872,1002],[27,29,32,46,50,54,59,65,71,78,86,96,107,120,135],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃",56,14,260),new Skill("こなゆき",78,13,240),new Skill("ゆきなだれ(2ヒット)",36,8,190),new Skill("マジカルシャイン",60,10,320),new Skill("マジカルシャイン+",61,10,380),new Skill("こごえるかぜ(2ヒット)",61,7,240),new Skill("ふぶき(1段目)",39,4,250),new Skill("ふぶき(エリア6ヒット)",19.5,2,125),new Skill("ふぶき+(1段目)",42.8,4,280),new Skill("ふぶき+(エリア6ヒット)",21.4,2,140),new Skill("ユナイト技(対象が氷)",224,32,1520),new Skill("ユナイト技(対象が氷でない)",158.6,30,1064)]));
+
       console.log(data);
       let inputattackpokemon=document.getElementById("attackpokemon");
       let inputskill = document.getElementById("skill");
@@ -284,7 +299,6 @@
         }
         if(kind==="atk"){
           attack+=Math.floor((itemlv-0)/2);
-          attack=(document.getElementById(kind+"insurance").value*[2,2.5,3,3][Math.floor(itemlv/10)]*attack/100);
         }else{
           nowhp+=Math.floor((itemlv-0-1)/2)*10+70;
           healthpoint+=Math.floor((itemlv-0-1)/2)*10+70;
@@ -346,67 +360,260 @@
           inputnowhp.max = healthpoint;
         }
       }
+      function wise(i,kind,itemlv){
+        if(document.getElementById(kind+"wise")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.appendChild(document.createTextNode("備考欄"));
+          node.id =kind+"wise";
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"wise").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          sp_attack+=9+itemlv;
+        }
+      }
+      function choice(i,kind,itemlv){
+        if(document.getElementById(kind+"choice")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="checkbox";
+          node.chekced = true;
+          node.id=kind+"choice"
+          frag.appendChild(document.createTextNode("CT0秒"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"choice").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          sp_attack+=9+itemlv;
+        }
+      }
+      function energy(i,kind,itemlv){
+        if(document.getElementById(kind+"energy")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("input");
+          node.type="checkbox";
+          node.chekced = true;
+          node.id=kind+"energy"
+          frag.appendChild(document.createTextNode("発動中"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"energy").addEventListener("change",calculation);
+        }
+      }
+      function vest(i,kind,itemlv){
+        if(document.getElementById(kind+"vest")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"vest";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"vest").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=18*Math.floor((itemlv+1)/2);
+          healthpoint+=18*Math.floor((itemlv+1)/2);
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+          sp_defence+=2.8*Math.floor(itemlv/2);
+        }
+      }
+      function barrier(i,kind,itemlv){
+        if(document.getElementById(kind+"barrier")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"barrier";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"barrier").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=15*itemlv;
+          healthpoint+=15*itemlv;
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+        }
+      }
+      function share(i,kind,itemlv){
+        if(document.getElementById(kind+"share")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"share";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"share").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=16*Math.floor((itemlv+1)/2);
+          healthpoint+=16*Math.floor((itemlv+1)/2);
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+        }
+      }
+      function focusband(i,kind,itemlv){
+        if(document.getElementById(kind+"focusband")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"focusband";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"focusband").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          defence+=2*Math.floor((itemlv+1)/2);
+          defence+=2*Math.floor(itemlv/2);
+        }
+      }
+      function leftovers(i,kind,itemlv){
+        if(document.getElementById(kind+"leftovers")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"leftobers";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"leftovers").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=16*Math.floor((itemlv+1)/2);
+          healthpoint+=16*Math.floor((itemlv+1)/2);
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+        }
+      }
+      function helmet(i,kind,itemlv){
+        if(document.getElementById(kind+"helmet")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"helmet";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"helmet").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=18*Math.floor((itemlv+1)/2);
+          healthpoint+=18*Math.floor((itemlv+1)/2);
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+          defence+=2.8*Math.floor(itemlv/2);
+        }
+      }
+      function scoreshield(i,kind,itemlv){
+        if(document.getElementById(kind+"scoreshield")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"scoreshield";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"scoreshield").addEventListener("change",calculation);
+        }
+        if(kind==="def"){
+          nowhp+=15*itemlv;
+          healthpoint+=15*itemlv;
+          btnnowhp.value = healthpoint;
+          inputnowhp.max = healthpoint;
+        }
+      }
+      function shellbell(i,kind,itemlv){
+        if(document.getElementById(kind+"shellbell")===null){
+          let frag = document.createElement("label");
+          let node = document.createElement("label");
+          node.id=kind+"shellbell";
+          frag.appendChild(document.createTextNode("備考欄"));
+          document.getElementsByName("itemli")[i].appendChild(frag);
+          document.getElementsByName("itemli")[i].appendChild(node);
+          document.getElementById(kind+"shellbell").addEventListener("change",calculation);
+        }
+        if(kind==="atk"){
+          sp_attack+=1.6*Math.floor((itemlv+1)/2);
+        }
+      }
       //もちものをステータス計算に適応し、新しくインプットを作る
+      function tadanoshori(i,kind){
+        let item = items[i];
+          let itemlv = items_level[i].value;
+          switch(item){
+            case "ちからのハチマキ":
+              powerband(i,kind,itemlv);
+            break;
+            case "かるいし":
+              floatstone(i,kind,itemlv);
+            break;
+            case "もうこうダンベル":
+              dumbbell(i,kind,itemlv);
+            break;
+            case "するどいツメ":
+              nail(i,kind,itemlv);
+            break;
+            case "じゃくてんほけん":
+              insurance(i,kind,itemlv);
+            break;
+            case "しんげきメガネ":
+              specs(i,kind,itemlv);
+            break;
+            case "ピントレンズ":
+              scope(i,kind,itemlv);
+            break;
+            case "エオスビスケット":
+              cookie(i,kind,itemlv);
+            break;
+            case "ものしりメガネ":
+              wise(i,kind,itemlv);
+            break;
+            case "こだわりメガネ":
+              choice(i,kind,itemlv);
+            break;
+            case "エナジーアンプ":
+              energy(i,kind,itemlv);
+            break;
+            case "とつげきチョッキ":
+              vest(i,kind,itemlv);
+            break;
+            case "おたすけバリア":
+              barrier(i,kind,itemlv);
+            break;
+            case "がくしゅうそうち":
+              share(i,kind,itemlv);
+            break;
+            case "きあいのハチマキ":
+              focusband(i,kind,itemlv);
+            break;
+            case "たべのこし":
+              leftovers(i,kind,itemlv);
+            break;
+            case "ゴツゴツメット":
+              helmet(i,kind,itemlv);
+            break;
+            case "ゴールサポーター":
+              scoreshield(i,kind,itemlv);
+            break;
+            case "かいがらのすず":
+              shellbell(i,kind,itemlv);
+            break;
+          }
+      }
       function itemprocess(){
         for(let i = 0;i<=2;i++){
-          let item = items[i];
-          let itemlv = items_level[i].value;
-          switch(item){
-            case "ちからのハチマキ":
-              powerband(i,"atk",itemlv);
-            break;
-            case "かるいし":
-              floatstone(i,"atk",itemlv);
-            break;
-            case "もうこうダンベル":
-              dumbbell(i,"atk",itemlv);
-            break;
-            case "するどいツメ":
-              nail(i,"atk",itemlv);
-            break;
-            case "じゃくてんほけん":
-              insurance(i,"atk",itemlv);
-            break;
-            case "しんげきメガネ":
-              specs(i,"atk",itemlv);
-            break;
-            case "ピントレンズ":
-              scope(i,"atk",itemlv);
-            break;
-            case "エオスビスケット":
-              cookie(i,"atk",itemlv);
-            break;
-          }
+          tadanoshori(i,"atk")
         }
         for(let i = 3;i<=5;i++){
-          let item = items[i];
-          let itemlv = items_level[i].value;
-          switch(item){
-            case "ちからのハチマキ":
-             powerband(i,"def",itemlv);
-            break;
-            case "かるいし":
-              floatstone(i,"def",itemlv);
-            break;
-            case "もうこうダンベル":
-              dumbbell(i,"def",itemlv);
-            break;
-            case "するどいツメ":
-              nail(i,"def",itemlv);
-            break;
-            case "じゃくてんほけん":
-              insurance(i,"def",itemlv);
-            break;
-            case "しんげきメガネ":
-              specs(i,"def",itemlv);
-            break;
-            case "ピントレンズ":
-              scope(i,"def",itemlv);
-            break;
-            case "エオスビスケット":
-              cookie(i,"def",itemlv);
-            break;
-          }
+          tadanoshori(i,"def");
+        }
+        if([items[0],items[1],items[2]].includes("じゃくてんほけん")){
+          let itemlv=items_level[items.indexOf("じゃくてんほけん")].value-0;
+          attack+=Math.floor((document.getElementById("atkinsurance").value*[2,2.5,3,3][Math.floor(itemlv/10)]*attack)/100);
+      }
+      if([items[0],items[1],items[2]].includes("ものしりメガネ")){
+          let itemlv=items_level[items.indexOf("ものしりメガネ")].value-0;
+          sp_attack+=Math.floor(([3,5,7,7][Math.floor(itemlv/10)]*sp_attack)/100);
         }
       }
       //スキルのdatalistを変更する
@@ -454,8 +661,8 @@
           let itemlv = items_level[i].value;
           switch(item){
             case "ちからのハチマキ":
-              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atkpowerband").checked){
-                let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);//なんか合わない
+              if((skill.name.includes("通常攻撃")||skill.name.includes("強化攻撃"))&&document.getElementById("atkpowerband").checked){
+                let valll = Math.floor([1,2,3,3][Math.floor(itemlv/10)]*(nowhp-damage)/100);
                 let nummm = kind==="attack"?600/(defence+600)*valll:600/(sp_defence+600)*valll;
                 console.log(valll);
                 console.log(nummm);
@@ -467,13 +674,18 @@
               }
             break;
             case "するどいツメ":
-              if((skill.name==="通常攻撃"||skill.name==="強化攻撃"||skill.name==="通常攻撃(近)"||skill.name==="強化攻撃(近)"||skill.name==="通常攻撃(遠)"||skill.name==="強化攻撃(遠)")&&document.getElementById("atknail").checked){
+              if((skill.name.includes("通常攻撃")||skill.name.includes("強化攻撃"))&&document.getElementById("atknail").checked){
                 damage+=[10,15,20,20][Math.floor(itemlv/10)];
                 damage+=Math.floor([40,45,50,50][Math.floor(itemlv/10)]*attack/100)
               }
             break;
+            case "エナジーアンプ":
+              if(document.getElementById("atkenergy").checked){
+                damage+=Math.floor(damage*[7,14,21,21][Math.floor(itemlv/10)]/100)
+              }
           }
         }
+        
           if(inputcritical.checked){
             if([items[0],items[1],items[2]].includes("ピントレンズ")){
               let itemlv=items_level[items.indexOf("ピントレンズ")].value-0;
