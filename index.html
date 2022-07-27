@@ -95,6 +95,7 @@
         </label>
       </div>
       <p id="atk" class="stats">attack:160</p>
+      <span id="yourattack"></span>
     </div>
     <div class="defence">
       <p class="cut">防御側</p>
@@ -117,6 +118,7 @@
         <input type="button" value="3250" class="btn" id="nowhp_btn">
       </div>
       <p id="def" class="stats">ぼうぎょ:78</p>
+      <span id="yourdefence"></span>
       <div class="item">
         <label>もちもの</label>
         <ul>
@@ -128,17 +130,15 @@
       </div>
       <div id="defchecks">
         <label class="check">
-          オーロラベール効果発動中
+          アローラキュウコンのオーロラベール効果発動中
           <input type="checkbox" id="aurora">
-        </label>
-        <label class="check">
-          ヘドロばくだん効果発動中
-          <input type="checkbox" id="sludge">
         </label>
       </div>
     </div>
     <p id="result" class="result"></p>
     <p id="memo"></p>
+    <label>ステータスのバフ、デバフを考慮した計算を自力で行う場合</label>
+    <input type="checkbox" class="check" id="invalidation" >
     <a href="https://unite-db.com" class="unitedb" >データを確認するのに利用したUniteDB様</a>
     <p>Pokémon UNITE ver1.5.2対応</p>
     <script>
@@ -196,6 +196,8 @@
       data.push(new Pokemon("カメックス",[3225,3319,3432,3568,4060,4256,4491,4773,5769,6175,6662,7247,7948,8790,9800],[150,152,154,157,168,172,177,183,204,214,224,238,252,270,292],[100,107,116,126,163,178,196,217,293,324,361,405,458,522,599],[50,55,61,68,95,106,119,135,190,212,239,271,310,356,412],[70,75,81,88,114,124,137,152,205,227,253,284,321,366,420],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃(3ヒット)",20,5,90),new Skill("みずてっぽう",88,16,510),new Skill("ハイドロポンプ(3ヒット)",47.5,8,310),new Skill("ハイドロポンプ(こうそくスピン中)",95,16,620),new Skill("ハイドロポンプ+(3ヒット)",57,9,370),new Skill("ハイドロポンプ+(こうそくスピン中)",114,18,740),new Skill("しおふき(6ヒット)",36,4,120),new Skill("しおふき(こうそくスピン中)",36,4,120),new Skill("しおふき+(6ヒット)",42,4,140),new Skill("しおふき+(こうそくスピン中)",42,4,140),new Skill("ロケットずつき",54,10,310),new Skill("なみのり",125,18,800),new Skill("こうそくスピン(10ヒット)",21,3,140),new Skill("ユナイト技",164,22,1040)]));
       data.push(new Pokemon("プクリン",[3278,3415,3573,4372,4581,4821,5097,5414,5779,6199,6681,7236,7874,8608,9452],[130,134,139,162,168,175,183,192,203,215,229,245,264,285,310],[90,100,111,169,184,201,221,244,271,302,337,377,424,477,539],[40,51,64,131,148,168,191,217,247,282,322,368,421,482,552],[80,89,99,151,165,181,199,220,244,271,302,338,379,427,482],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃",44,18,340),new Skill("はたく(2ヒット)",31,18,340),new Skill("おうふくビンタ(3-6ヒット)",18,9,200),new Skill("マジカルシャイン(1段目)",13,6,144),new Skill("マジカルシャイン(2段目)",65,33,720),new Skill("ころがる",47,14,590)]));
       data.push(new Pokemon("カイリキー",[3250,3313,3389,3480,3809,3940,4097,4286,4953,5225,5551,5942,6411,6974,7650],[165,170,175,181,205,214,225,239,287,306,329,357,391,431,479],[98,104,111,119,148,160,174,191,250,274,303,338,380,430,490],[20,21,23,25,32,35,38,42,56,62,69,77,87,99,114],[64,68,72,77,96,104,113,124,163,179,198,221,248,281,320],"attack",[new Skill("通常攻撃",100),new Skill("強化攻撃",150),new Skill("からてチョップ",217,17,320),new Skill("インファイト(最初の4ヒット)",59,2,50),new Skill("インファイト(最後のヒット)",177,6,150),new Skill("クロスチョップ",98,13,290),new Skill("ばくれつパンチ(4ヒット)",37,2,70),new Skill("じごくぐるま(2ヒット)",91,4,170),new Skill("ユナイト技(最初の6ヒット)",100,2,100),new Skill("ユナイト技(最後のヒット)",200,4,200)]));
+      data.push(new Pokemon("ヤドラン",[3225,3362,3519,4318,4527,4767,5042,5359,5724,6144,6627,7183,7822,8556,9400],[150,153,157,175,180,186,192,199,207,217,228,241,256,273,292],[70,78,87,132,144,158,174,192,213,237,264,295,331,373,421],[50,58,67,114,126,140,156,175,196,221,249,282,319,362,411],[60,67,75,114,124,136,149,164,182,202,225,252,283,319,360],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃 ",110,9,180),new Skill("チャージなしみずてっぽう",132,11,210),new Skill("低チャージみずてっぽう",176,15,280),new Skill("中チャージみずてっぽう",220,19,350),new Skill("フルチャージ",264,23,420),new Skill("ねっとう(3ヒット)",100,7,160),new Skill("やけど(ねっとう5ヒット)",20,1,32,[0,0],[0,0],[0,0],false),new Skill("なみのり",103,6,210),new Skill("ユナイト技(6ヒット)",80,3,170)]));
+      data.push(new Pokemon("ゲンガー",[3456,3510,3574,3651,3931,4043,4177,4338,4905,5136,5414,5747,6146,6625,7200],[167,170,173,177,192,198,205,213,243,255,270,288,309,334,364],[52,55,59,63,79,85,92,101,133,146,161,179,201,228,260],[80,89,100,113,159,177,199,226,320,358,404,459,525,604,699],[38,40,43,46,57,62,67,74,97,106,117,131,147,166,189],"special",[new Skill("通常攻撃",100),new Skill("強化攻撃",84,8,160),new Skill("おにび",84,5,100),new Skill("やけど(おにび)",28,2,40,[0,0],[0,0],[0,0],false),new Skill("シャドーボール",115.2,32,756),new Skill("シャドーボール+",128,36,840),new Skill("ヘドロばくだん",106,6,230),new Skill("どく(ヘドロばくだん)",0,0,0,[1,0],[0,0],[0,0],false),new Skill("したでなめる",113,7,140),new Skill("ゆめくい",260,12,550),new Skill("ゆめくい+",293,14,620),new Skill("たたりめ",105,3,150),new Skill("たたりめ+",125,4,200),new Skill("ユナイト技",263,12,560)]));
 
       data.push(new Pokemon("みがわり人形",fill(100000,15),fill(0,15),fill(0,15),fill(0,15),fill(0,15),"attack",null));
       console.log(data);
@@ -238,7 +240,8 @@
       let inputpluspower = document.getElementById("pluspower");
       let reduction = 1;
       let inputaurora = document.getElementById("aurora");
-      let inputsludge = document.getElementById("sludge");
+      let invalidation = document.getElementById("invalidation");
+      let yourself = false;
       function write(text){
         memo.textContent = memo.textContent+text+",";
       }
@@ -802,7 +805,7 @@
                 console.log(valll);
                 console.log(nummm);
                 if(nummm>360){
-                  damage+=nummm
+                  damage+=360;
                 }else{
                 damage=Math.floor(damage+nummm);
                 }
@@ -873,7 +876,7 @@
         items = [inputitems[0].value,inputitems[1].value,inputitems[2].value,inputitems[3].value,inputitems[4].value,inputitems[5].value];
         reduction = 1;
         
-        if(attackpokemon.kind ==="attack"||(skill.name==="通常攻撃")){
+        if(attackpokemon.kind ==="attack"||(skill.name==="通常攻撃"&&(attackpokemon.name!=="プクリン"))){
           kind = "attack";
         }else{
           kind = "special";
@@ -896,6 +899,10 @@
         }else{
           document.getElementById("warning2").textContent="";
         }
+        if(inputpluspower.checked){
+          attack=Math.floor(attack*1.25);
+          sp_attack=Math.floor(sp_attack*1.25);
+        }
         if(gutsbuff&&document.getElementById("machamp_gutsbuff").checked){
           attack=Math.floor(1.1*attack);
         }
@@ -913,8 +920,21 @@
           defence+=200;
           sp_defence+=200;
         }
-        atk.textContent = `${kind==="attack"?"こうげき":"とくこう"}:${kind==="attack"?attack:sp_attack}`;
+        /*/こうげきとくこう、ぼうぎょとくぼうとして表示する値の設定/*/
+        atk.textContent = `${kind==="attack"||(attackpokemon.name==="プクリン"&&skill.name==="通常攻撃")?"こうげき":"とくこう"}:${kind==="attack"?attack:sp_attack}`;
         def.textContent = `${kind==="attack"?"ぼうぎょ":"とくぼう"}:${kind==="attack"?defence:sp_defence}`;
+        if(yourself){
+          if(kind==="attack"||(attackpokemon.name==="プクリン"&&skill.name==="通常攻撃")){
+            attack=document.getElementsByName("yourselves")[0].value-0;
+          }else{
+            sp_attack=document.getElementsByName("yourselves")[0].value-0;
+          }
+          if(kind==="attack"){
+            defence=document.getElementsByName("yourselves")[1].value-0;
+          }else{
+            sp_defence=document.getElementsByName("yourselves")[1].value-0;
+          }
+        }
         maxhp.textContent = `最大HP:${healthpoint}`
         damage=(kind==="attack")?Math.floor(skill.ratio*0.01*attack+skill.per*(attacklevel-1)+skill.base):Math.floor(skill.ratio*0.01*sp_attack+skill.per*(attacklevel-1)+skill.base);
         if(skill.name === "しんそく+"||(lucario_extremespeedbuff&&document.getElementById("lucario_extremespeedbuff").checked)){
@@ -926,14 +946,14 @@
         if(document.getElementById("venusaur_gigadraianbuff")!==null&&document.getElementById("venusaur_gigadrainbuff").checked){
           reduction = reduction*(1-0.35);
         }
+        if(document.getElementById("machamp_closecombatbuff")!==null&&document.getElementById("machamp_closecombatbuff").checked){
+              damage = Math.floor(damage*1.25);
+        }
         console.log(items);
         console.log([items[0],items[1],items[2]].includes("ちからのハチマキ"));
         if(defencepokemon.name==="みがわり人形"){
-          if(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0&&![items[0],items[1],items[2]].includes("ちからのハチマキ")){
+          if(skill.rate[0]===0&&skill.decrease[0]===0&&skill.current[0]===0&&!([items[0],items[1],items[2]].includes("ちからのハチマキ")&&(skill.name.includes("通常攻撃")||skill.name.includes("強化攻撃")))){
             itemtreatment();
-            if(document.getElementById("machamp_closecombatbuff")!==null&&document.getElementById("machamp_closecombatbuff").checked){
-              damage = Math.floor(damage*1.25);
-            }
             result.textContent =`${damage}ダメージ`
           }else{
             if([items[0],items[1],items[2]].includes("ちからのハチマキ")&&([items[0],items[1],items[2]].join().includes("通常攻撃")||([items[0],items[1],items[2]].join().includes("強化攻撃")))){
@@ -944,9 +964,6 @@
             result.textContent =`${damage}ダメージ+割合`;
           }
         }else{
-          if(inputsludge.check){
-            sp_defence = Math.floor(sp_defence*0.7);
-          }
         damage =(kind==="attack"&&attackpokemon.name!=="プクリン")?Math.floor(600/(defence+600)*damage)*reduction:Math.floor(600/(sp_defence+600)*damage)*reduction;
         damage = Math.floor(damage);
         console.log(damage);
@@ -1023,7 +1040,6 @@
       inputcritical.addEventListener("change",calculation);
       inputpluspower.addEventListener("change",calculation);
       inputaurora.addEventListener("change",calculation);
-      inputsludge.addEventListener("change",calculation);
       document.addEventListener('touchstart', (event) => {
         if(event.touches && event.touches.length > 1) {
             event.preventDefault();
@@ -1035,6 +1051,38 @@
       document.getElementById("atkdumbbell").addEventListener("change",calculation);
       document.getElementById("defpowerband").addEventListener("change",calculation);
       document.getElementById("defdumbbell").addEventListener("change",calculation);
+      invalidation.addEventListener("change",()=>{
+        if(invalidation.checked){
+          if(!yourself){
+            let frag = document.createElement("input");
+            let label = document.createElement("label");
+            frag.name = "yourselves";
+            frag.value = kind==="attack"?attack:sp_attack;
+            frag.max ===999999;
+            label.className="stats"
+            label.appendChild(document.createTextNode(`${kind==="attack"||(attackpokemon.name==="プクリン"&&skill.name==="通常攻撃")?"こうげき":"とくこう"}(入力):`));
+            label.appendChild(frag);
+            document.getElementById("yourattack").appendChild(label);
+            label.addEventListener("change",calculation);
+            let frag2 = document.createElement("input");
+            let label2 = document.createElement("label");
+            frag2.name = "yourselves";
+            frag2.value = kind==="attack"?defence:sp_defence;
+            frag2.max = 999999;
+            label2.className = "stats";
+            label2.appendChild(document.createTextNode(`${kind==="attack"?"ぼうぎょ":"とくぼう"}(入力):`));
+            label2.appendChild(frag2);
+            document.getElementById("yourdefence").appendChild(label2);
+            label2.addEventListener("change",calculation);
+            yourself=true;
+          }
+        }else{
+          if(yourself){
+            document.getElementsByName("yourselves")[0].remove();
+            document.getElementsByName("yourselves")[1].remove();
+          }
+        }
+      })
     </script>
   </body>
 </html>
