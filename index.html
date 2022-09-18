@@ -16,15 +16,10 @@
       </label>
       </div>
       <datalist id="atkpokemon">
-        <option value="ルカリオ">
-        <option value="ピカチュウ">
-        <option value="アローラキュウコン">
+        
       </datalist>
         <datalist id="defpokemon">
-        <option value="ルカリオ">
-        <option value="ピカチュウ">
-        <option value="アローラキュウコン">
-        <option value="みがわり人形">
+        
       </datalist>
       <div class="skill">
       <label>技名
@@ -128,6 +123,20 @@
         </ul>
         <p id="warning2" class="warning"></p>
       </div>
+      <!--
+      <div class="medal">
+        <p>メダル構成</p>
+        <ul class="base">
+          <li id="defmedal_h"><dt>HP:</dt><input type="number"></li>
+          <li id="defmedal_a"><dt>こうげき:</dt><input type="number"></li>
+          <li id="defmedal_b"><dt>ぼうぎょ:</dt><input type="number"></li>
+          <li id="defmedal_c"><dt>とくこう:</dt><input type="number"></li>
+          <li id="defmedal_d"><dt>とくぼう:</dt><input type="number"></li>
+          <li id="defmedal_s"><dt>すばやさ:</dt><input type="number"></li>
+        </ul>
+        <ul class="color"></ul>
+      </div>
+    -->
       <div id="defchecks">
         <label class="check">
           アローラキュウコンのオーロラベール効果発動中
@@ -254,6 +263,20 @@
       function write(text){
         memo.textContent = memo.textContent+text+",";
       }
+      let atkpokemon = document.getElementById("atkpokemon");
+      let defpokemon = document.getElementById("defpokemon");
+      console.log(data);
+      for(let i = 0;i<data.length;i++){
+        let frag = document.createElement("option");
+        let frag2 = document.createElement("option");
+        frag.value = data[i].name;
+        frag2.value = data[i].name;
+        defpokemon.appendChild(frag);
+        if(i!==data.length-1){
+          atkpokemon.appendChild(frag2);
+        }
+      }
+      //ここからもちもの処理
       function powerband(i,kind,itemlv){
         if(document.getElementById(kind+"powerband")===null){
           let frag = document.createElement("label");
